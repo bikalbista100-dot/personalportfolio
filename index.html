@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bikal Bista - Portfolio</title>
+
+  <!-- 🌗 Font Awesome & AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+  <style>
+  /* =======================
+     THEME VARIABLES
+  ==========================*/
+  :root {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --card-bg: #fff;
+    --primary-color: #0b7dda;
+    --primary-dark: #055a9c;
+    --section-bg: #f0f0f0;
+  }
+  body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e4e4e4;
+    --card-bg: #2a2a2a;
+    --primary-color: #4ca3ff;
+    --primary-dark: #0078e7;
+    --section-bg: #252525;
+  }
+  body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  header, footer, form, .project-card, .skill-item {
+    background: var(--card-bg);
+    transition: background 0.4s ease;
+  }
+
+  a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+  a:hover { color: var(--primary-dark); }
+
+  /* =======================
+     LAYOUT
+  ==========================*/
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  header {
+    background: var(--card-bg);
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .logo { font-weight: 700; font-size: 1.5rem; color: var(--primary-color); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+
+  nav ul li a {
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  nav ul li a:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+
+  /* 🌙 Dark Mode Toggle */
+  #theme-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  #theme-toggle:hover { color: var(--primary-dark); transform: rotate(15deg); }
+
+  main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  section { margin-bottom: 60px; }
+
+  h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 6px;
+  }
+
+  /* Home */
+  #home { text-align: center; }
+  #home .profile-pic {
+    width: 160px; height: 160px; border-radius: 50%;
+    object-fit: cover; border: 5px solid var(--primary-color);
+    margin-bottom: 20px;
+  }
+  #home h1 { font-size: 2.8rem; margin-bottom: 10px; color: var(--primary-color); }
+  #home p { font-size: 1.2rem; color: #888; max-width: 600px; margin: 0 auto; }
+
+  /* About */
+  #about p { font-size: 1.1rem; max-width: 700px; color: var(--text-color); }
+
+  /* Portfolio */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+  }
+  .project-card:hover { transform: translateY(-8px); color: var(--primary-dark); }
+  .project-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background: #ccc;
+  }
+
+  /* Skills */
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 700px;
+  }
+  .skill-item {
+    flex: 1 1 150px;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  .skill-item:hover { background-color: #e6f0fa; }
+
+  /* Blog */
+  .blog-list { display: flex; flex-direction: column; gap: 25px; max-width: 800px; }
+  .blog-post h3 { font-size: 1.3rem; color: var(--primary-color); }
+  .blog-post p { font-size: 1rem; color: var(--text-color); }
+  .blog-post time { font-size: 0.9rem; color: #888; }
+
+  /* Contact */
+  form {
+    max-width: 500px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  form label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--primary-color); }
+  form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  form button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form button:hover { background: var(--primary-dark); }
+
+  /* Social Links */
+  #social h2 { margin-top: 30px; }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+  }
+  .social-links a {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .social-links a:hover {
+    color: var(--primary-dark);
+    transform: scale(1.2);
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 0.9rem;
+    background: var(--section-bg);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 600px) {
+    nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
+    #home h1 { font-size: 2rem; }
+    .skill-list { flex-direction: column; }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo">Bikal Bista</div>
+      <!-- 🌙 Dark Mode Toggle -->
+      <button id="theme-toggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home -->
+    <section id="home" data-aos="fade-up">
+      <img src="images/profile.jpg" alt="Bikal Bista Profile Picture" class="profile-pic" />
+      <h1>Bikal Bista</h1>
+      <p>
+        I am a passionate and detail-oriented <strong>Computer Engineering graduate</strong> 
+        dedicated to transforming innovative ideas into practical technological solutions. 
+        With a strong foundation in <strong>IoT systems, software development, and web technologies</strong>, 
+        I aim to design projects that bridge creativity and functionality. 
+        My academic journey has helped me build skills in <strong>problem-solving, teamwork, and project execution</strong>, 
+        and I’m always eager to learn, adapt, and grow in the ever-evolving tech industry.
+      </p>
+    </section>
+    
+
+    <!-- About -->
+    <section id="about" data-aos="fade-up">
+      <h2>About Me</h2>
+      <p>
+        I am a dedicated and detail-oriented <strong>Computer Engineering graduate</strong> with a strong interest in 
+        <strong>software development, hardware integration, and Internet of Things (IoT)</strong> technologies. 
+        My academic and project experiences have equipped me with the ability to design, build, and optimize 
+        innovative digital solutions. I am deeply passionate about <strong>continuous learning</strong> and using technology 
+        to create meaningful, real-world impact. My goal is to contribute to projects that blend creativity, 
+        efficiency, and cutting-edge innovation.
+      </p>
+    </section>
+    
+
+    <!-- Portfolio -->
+    <!-- Portfolio -->
+<section id="portfolio" data-aos="fade-up">
+  <h2>Portfolio</h2>
+  <div class="projects-grid">
+
+    <!-- IoT Project -->
+    <div class="project-card" data-aos="zoom-in">
+      <img src="images/iot.jpg" alt="IoT Project" class="project-image" />
+      <div class="project-title">Internet Of Things</div>
+      <div class="project-desc">
+        Developed an Internet of Things system for smart home automation, enabling remote monitoring and control.
+      </div>
+      <div class="project-details">
+        <strong>Files:</strong><br />
+        <a href="files/Automatic_Pallet_Transport_Request_by_Forklift-3.pdf" target="_blank">📄 Automatic_Pallet_Transport_Request_by_Forklift-3.pdf</a><br />
+        <a href="files/Scientific_Article_Report.pdf" target="_blank">📄 Scientific_Article_Report.pdf</a><br />
+        <a href="files/TP1.pdf" target="_blank">📄 TP1.pdf</a><br />
+        <a href="files/TP2.pdf" target="_blank">📄 TP2.pdf</a><br />
+        <a href="files/TP3.pdf" target="_blank">📄 TP3.pdf</a><br />
+        <a href="files/TP4.pdf" target="_blank">📄 TP4.pdf</a><br />
+        <a href="files/TP5.pdf" target="_blank">📄 TP5.pdf</a>
+      </div>
+    </div>
+
+    <!-- Online Voting Project -->
+    <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+      <img src="images/voting.jpg" alt="Online Voting Project" class="project-image" />
+      <div class="project-title">Online Voting System</div>
+      <div class="project-desc">
+        Secure online voting platform with verification, admin management, and results analysis.
+      </div>
+      <div class="project-details">
+        <strong>Files:</strong><br />
+        <a href="files/Virtual_Democracy__Confidential_and_Accessible_voting_in_VR_REVIEWED_.pdf" target="_blank">
+          📄 Virtual_Democracy.pdf
+        </a>
+      </div>
+    </div>
+
+    <!-- Artificial Intelligence Project -->
+    <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+      <img src="images/AI.jpg" alt="Artificial Intelligence Project" class="project-image" />
+      <div class="project-title">Artificial Intelligence</div>
+      <div class="project-desc">
+        Designed and developed an AI-based project with advanced model training and performance evaluation.
+      </div>
+      <div class="project-details">
+        <strong>Files:</strong><br />
+        <a href="files/grupo45_apresentacao.pdf" target="_blank">📄 grupo45_apresentacao.pdf</a><br />
+        <a href="files/grupo_custos_estimados.csv" target="_blank">📊 grupo_custos_estimados.csv</a><br />
+        <a href="files/grupo45_solucao.ipynb" target="_blank">💻 grupo45_solucao.ipynb</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- Skills -->
+    <section id="skills" data-aos="fade-up">
+      <h2>Skills</h2>
+      <div class="skill-list">
+        <div class="skill-item">Python</div>
+        <div class="skill-item">C++</div>
+        <div class="skill-item">Java</div>
+        <div class="skill-item">HTML & CSS</div>
+        <div class="skill-item">JavaScript</div>
+        <div class="skill-item">Database Management</div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" data-aos="fade-up">
+      <h2>Services</h2>
+      <ul>
+        <li>Custom software and application development</li>
+        <li>Internet of Things (IoT) design and implementation</li>
+        <li>Responsive and interactive web development</li>
+        <li>Database design and optimization</li>
+      </ul>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" data-aos="fade-up">
+      <h2>Blog & Articles</h2>
+      <div class="blog-list">
+        <article class="blog-post">
+          <h3><a href="#">Getting Started with IoT Projects</a></h3>
+          <p>A beginner-friendly guide to IoT project planning and prototyping.</p>
+          <time>Jan 2026</time>
+        </article>
+        <article class="blog-post">
+          <h3><a href="#">Top JavaScript Tips for Beginners</a></h3>
+          <p>Best practices to improve your JS code readability and performance.</p>
+          <time>Jan 2026</time>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" data-aos="fade-up">
+      <h2>Contact</h2>
+      <p>Feel free to reach out by filling the form below.</p>
+      <form action="https://formspree.io/f/xlglpyqe" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- Social -->
+    <section id="social" data-aos="fade-up">
+      <h2>Connect with Me</h2>
+      <div class="social-links">
+        <a href="https://github.com/bikalbista100-dot" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/bikal-bista-282405179/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:bikalbista100@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 Bikal Bista. All rights reserved.</footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  // AOS animation setup
+  AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+
+  // 🌙 DARK MODE TOGGLE
+  const toggleBtn = document.getElementById("theme-toggle");
+  const body = document.body;
+
+  if (localStorage.getItem("theme") === "dark") {
+    body.classList.add("dark-mode");
+    toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    const darkMode = body.classList.contains("dark-mode");
+
+    toggleBtn.innerHTML = darkMode
+      ? '<i class="fas fa-sun"></i>'
+      : '<i class="fas fa-moon"></i>';
+
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  });
+
+  // 🧾 CLEAR CONTACT FORM AFTER SEND
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      alert("✅ Message sent successfully!");
+      form.reset();
+    } else {
+      alert("❌ Something went wrong. Please try again.");
+    }
+  });
+</script>
+
+</body>
+</html>

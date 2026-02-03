@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "msedge",
+        "request": "launch",
+        "name": "Open index.html in Edge",
+        "file": "/Users/bikalbista/Desktop/profil/index.html",
+        "runtimeExecutable": "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+      }
+    ]
+  }
+  
